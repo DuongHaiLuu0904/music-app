@@ -1,0 +1,31 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block style
+    link(rel="stylesheet", href="/css/songs.css")
+
+block main 
+    .container
+        .row
+            +box-head(title)
+        .row 
+            each song in songs
+                
+                .col-6.mb-3 
+                    .song-item 
+                        .inner-image 
+                            a(href=`/songs/detail/${song.slug}`) 
+                                img(src=song.avatar, alt="Cover Image")
+                        .inner-content
+                            .inner-title 
+                                a(href=`/songs/detail/${song.slug}`) #{song.title}
+                            .inner-singer 
+                                a(href="/singer/detail/:slugSinger") 
+                                    i.fa-solid.fa-microphone-lines 
+                                    |  #{song.infoSinger.fullName}
+                            .inner-like 
+                                i(class="fa-solid fa-thumbs-up") 
+                                |   #{song.like}
+                            .inner-time 
+                                i(class="fa-solid fa-clock") 
+                                |   3:45
