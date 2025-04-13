@@ -1,12 +1,12 @@
 // Aplayer 
 const aplayer = document.querySelector('#aplayer');
-if(aplayer) {
+if (aplayer) {
     let dataSong = aplayer.getAttribute('data-song');
     dataSong = JSON.parse(dataSong);
 
     let dataSinger = aplayer.getAttribute('data-singer');
     dataSinger = JSON.parse(dataSinger);
- 
+
     const ap = new APlayer({
         container: aplayer,
         autoplay: true,
@@ -19,10 +19,10 @@ if(aplayer) {
             }
         ]
     });
-    
+
     // Lấy phần tử ảnh album
     const albumImage = document.querySelector('.inner-avatar img');
-    
+
     // Hàm kiểm tra trạng thái và cập nhật class cho ảnh
     const updateRotation = () => {
         if (ap.audio.paused) {
@@ -31,12 +31,38 @@ if(aplayer) {
             albumImage.style.animationPlayState = 'running';
         }
     };
-    
+
     // Cập nhật ban đầu
     updateRotation();
-    
+
     // Lắng nghe sự kiện play và pause
     ap.on('play', updateRotation);
     ap.on('pause', updateRotation);
 }
 // End Aplayer 
+
+// button like
+const buttonLike = document.querySelector('[button-like]');
+if (buttonLike) {
+    buttonLike.addEventListener('click', () => {
+        const songId = buttonLike.getAttribute('button-like');
+        const isActive = buttonLike.classList.contains('active');
+
+        const typeLike = isActive ? 'no' : 'yes';
+
+        const link = `/songs/like/${typeLike}/${songId}`;
+
+        const options = {
+            method: 'PATCH'
+        };
+        fetch(link, options)
+            .then(response => response.json())
+            .then(data => {
+                const span = buttonLike.querySelector('span');
+                span.innerHTML = `${data.like} thích`
+
+                buttonLike.classList.toggle('active');
+            })
+    });
+}
+// End button like

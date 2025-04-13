@@ -47,6 +47,57 @@
   color: #2196f3;
 }
 
+/* Hiệu ứng khi like - style cho trạng thái active */
+.inner-like.active {
+  background-color: #2196f3;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 3px 10px rgba(33, 150, 243, 0.4);
+}
+
+.inner-like.active i {
+  color: white;
+}
+
+.inner-like {
+  background-color: white;
+  color: #555;
+  border: 1px solid #e0e0e0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Hiệu ứng gợn sóng khi click */
+.inner-like::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.inner-like:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0) translate(-50%, -50%);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(20, 20) translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
 /* Song play section */
 .inner-play {
   display: flex;
