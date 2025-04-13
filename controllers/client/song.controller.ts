@@ -34,10 +34,39 @@ export const list = async (req: Request, res: Response): Promise<any> => {
         }
     }))
 
-    console.log('songsWithSingers', songsWithSingers)
-
     res.render('client/pages/songs/list', {
         title: topic.title,  
         songs: songsWithSingers,
+    })
+}
+
+export const detail = async (req: Request, res: Response): Promise<any> => {
+    const song = await Song.findOne({ 
+        slug: req.params.slugSong,
+        status: "active",
+        deleted: false
+    })
+
+    if (!song) {
+        return res.status(404).send('Song not found')
+    }
+
+    const infoSinger = await Singer.findOne({
+        _id: song.singerId,
+        status: "active",
+        deleted: false
+    }).select('fullName avatar')
+
+    const topic = await Topic.findOne({
+        _id: song.topicId,
+        status: "active",
+        deleted: false
+    }).select('title')
+
+    res.render('client/pages/songs/detail', {
+        title: song.title,  
+        song: song,
+        singer: infoSinger,
+        topic: topic
     })
 }

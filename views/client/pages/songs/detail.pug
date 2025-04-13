@@ -1,0 +1,55 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block style
+    link(rel="stylesheet", href="/css/songs/detail.css")
+
+block main 
+    .main-content
+        .container
+            .row 
+                .col-12 
+                    .inner-title #{song.title}
+                        
+                    .inner-actions 
+                        .inner-action.inner-time 
+                            i(class="fa-solid fa-clock") 
+                            |   3:45
+                        .inner-action.inner-singer
+                            i(class="fa-solid fa-microphone-lines")
+                            |  #{singer.fullName}
+                        .inner-action.inner-topic 
+                            i(class="fa-solid fa-book") 
+                            |   #{topic.title}
+                        .inner-action.inner-like 
+                            i(class="fa-solid fa-thumbs-up") 
+                            |   #{song.like} thích 
+                        .inner-action.inner-heart 
+                            i(class="fa-solid fa-heart") 
+                            |   bài hát yêu thích
+                    
+                    .inner-play 
+                        .inner-avatar 
+                            img(src=song.avatar, alt=song.title, class="rotating")
+                        .inner-audio 
+                            //- audio(controls="controls", id="song-audio") 
+                            //-     source(src="https://backend.daca.vn/assets/audios/cat-doi-noi-sau.mp3", type="audio/mpeg")
+                            //-     | Your browser does not support the audio element.
+                            div(
+                                id="aplayer" 
+                                data-song=song 
+                                data-singer=singer 
+                            )
+                                
+                                
+                    .inner-desc 
+                        .inner-label 
+                            |   Mô tả bài hát
+                        .inner-text 
+                            |   !{song.description}
+
+                    .inner-desc 
+                        .inner-label 
+                            |   Lời bài hát
+                        .inner-text 
+                            |!{song.lyrics}
