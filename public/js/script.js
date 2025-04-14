@@ -58,11 +58,37 @@ if (buttonLike) {
         fetch(link, options)
             .then(response => response.json())
             .then(data => {
-                const span = buttonLike.querySelector('span');
-                span.innerHTML = `${data.like} thích`
+                if(data.code === 200) {
+                    const span = buttonLike.querySelector('span');
+                    span.innerHTML = `${data.like} thích`
 
-                buttonLike.classList.toggle('active');
+                    buttonLike.classList.toggle('active');
+                }
             })
     });
 }
 // End button like
+
+// Button favorite
+const buttonFavorite = document.querySelector('[button-favorite]');
+if (buttonFavorite) {
+    buttonFavorite.addEventListener('click', () => {
+        const songId = buttonFavorite.getAttribute('button-favorite');
+        const isActive = buttonFavorite.classList.contains('heart-active');
+
+        const typeFavorite = isActive ? 'no' : 'yes';
+
+        const link = `/songs/favorite/${typeFavorite}/${songId}`;
+
+        const options = {
+            method: 'PATCH'
+        };
+        fetch(link, options)
+            .then(response => response.json())
+            .then(data => {
+                if(data.code === 200) {
+                    buttonFavorite.classList.toggle('heart-active');
+                }
+            })
+    });
+}

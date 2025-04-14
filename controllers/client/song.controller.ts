@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import Topic from '../../models/topic.model'
 import Song from '../../models/song.model'
 import Singer from '../../models/singer.model'
+import favoriteSong from '../../models/favorite-song.model'
 
 // [GET] /songs/:slugTopic
 export const list = async (req: Request, res: Response): Promise<any> => {
@@ -43,7 +44,7 @@ export const list = async (req: Request, res: Response): Promise<any> => {
 
 // [GET] /songs/detail/:slugSong
 export const detail = async (req: Request, res: Response): Promise<any> => {
-    const song = await Song.findOne({ 
+    let song = await Song.findOne({ 
         slug: req.params.slugSong,
         status: "active",
         deleted: false
@@ -65,11 +66,17 @@ export const detail = async (req: Request, res: Response): Promise<any> => {
         deleted: false
     }).select('title')
 
+    const isFavoriteSong = await favoriteSong.findOne({
+        songId: song._id,
+        // userId: req.user._id,
+    })
+
     res.render('client/pages/songs/detail', {
         title: song.title,  
         song: song,
         singer: infoSinger,
-        topic: topic
+        topic: topic,
+        isFavoriteSong: isFavoriteSong ? true : false
     })
 }
 
@@ -101,5 +108,38 @@ export const likeYes = async (req: Request, res: Response): Promise<any> => {
         code: 200,
         message: 'Like successfully',
         like : currentLikes 
+    })
+}
+
+// [PATCH] /songs/favorite/:typeFavorite/:idSong
+export const favoriteYes = async (req: Request, res: Response): Promise<any> => {
+    const idSong = req.params.idSong
+    const typeFavorite = req.params.typeFavorite
+    
+    switch (typeFavorite) {
+        case 'yes':
+            const exitsFavoriteSong = await favoriteSong.findOne({
+                songId: idSong
+            })
+            if(!exitsFavoriteSong) {
+                const record = new favoriteSong({
+                    songId: idSong,
+                    // userId: req.user._id,
+                })
+                await record.save()
+            }
+            break
+        case 'no':
+            await favoriteSong.deleteOne({
+                songId: idSong,
+                // userId: req.user._id,
+            })
+            break
+        default:
+            break
+    }
+    res.json({
+        code: 200,
+        message: 'Favorite successfully'
     })
 }

@@ -18,13 +18,16 @@ block main
                         .inner-action.inner-singer
                             i(class="fa-solid fa-microphone-lines")
                             |  #{singer.fullName}
-                        .inner-action.inner-topic 
+                        .inner-action.inner-topic   
                             i(class="fa-solid fa-book") 
                             |   #{topic.title}
                         .inner-action.inner-like(button-like=song.id)
                             i(class="fa-solid fa-thumbs-up") 
                             span #{song.like} thích 
-                        .inner-action.inner-heart 
+                        div(class=('inner-action inner-heart' + (isFavoriteSong ? " heart-active" : "")), button-favorite=song.id)
+                            i(class="fa-solid fa-heart") 
+                            |   bài hát yêu thích
+                        //- .inner-action.inner-heart(class=(song.isFavoriteSong ? "heart-active" : ""),button-favorite=song.id)
                             i(class="fa-solid fa-heart") 
                             |   bài hát yêu thích
                     
@@ -32,9 +35,7 @@ block main
                         .inner-avatar 
                             img(src=song.avatar, alt=song.title, class="rotating")
                         .inner-audio 
-                            //- audio(controls="controls", id="song-audio") 
-                            //-     source(src="https://backend.daca.vn/assets/audios/cat-doi-noi-sau.mp3", type="audio/mpeg")
-                            //-     | Your browser does not support the audio element.
+                            
                             div(
                                 id="aplayer" 
                                 data-song=song 
