@@ -70,25 +70,28 @@ if (buttonLike) {
 // End button like
 
 // Button favorite
-const buttonFavorite = document.querySelector('[button-favorite]');
-if (buttonFavorite) {
-    buttonFavorite.addEventListener('click', () => {
-        const songId = buttonFavorite.getAttribute('button-favorite');
-        const isActive = buttonFavorite.classList.contains('heart-active');
-
-        const typeFavorite = isActive ? 'no' : 'yes';
-
-        const link = `/songs/favorite/${typeFavorite}/${songId}`;
-
-        const options = {
-            method: 'PATCH'
-        };
-        fetch(link, options)
-            .then(response => response.json())
-            .then(data => {
-                if(data.code === 200) {
-                    buttonFavorite.classList.toggle('heart-active');
-                }
-            })
-    });
+const listButtonFavorite = document.querySelectorAll('[button-favorite]');
+if (listButtonFavorite.length > 0) {
+    listButtonFavorite.forEach(buttonFavorite => {
+        buttonFavorite.addEventListener('click', () => {
+            const songId = buttonFavorite.getAttribute('button-favorite');
+            const isActive = buttonFavorite.classList.contains('heart-active');
+    
+            const typeFavorite = isActive ? 'no' : 'yes';
+    
+            const link = `/songs/favorite/${typeFavorite}/${songId}`;
+    
+            const options = {
+                method: 'PATCH'
+            };
+            fetch(link, options)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.code === 200) {
+                        buttonFavorite.classList.toggle('heart-active');
+                    }
+                })
+        });
+    })
+    
 }

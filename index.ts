@@ -2,6 +2,7 @@ import express, {Express, Request, Response} from 'express';
 import dotenv from 'dotenv'
 import * as database from './config/database'; 
 import clientRoutes from './routes/client/index.route';
+import moment from 'moment';
 // import cors from 'cors'
 
 dotenv.config()
@@ -21,9 +22,11 @@ app.set('views', './views')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// app local variables
+app.locals.moment = moment
+
 clientRoutes(app)
 
-app.get('/', )
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

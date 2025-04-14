@@ -62,3 +62,37 @@
     font-weight: 500;
     color: #282828;
 }
+
+/* Add styles for the favorite button */
+.song-item .inner-content .inner-action {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    color: #d0021b;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.song-item .inner-content .inner-action i {
+    margin-right: 5px;
+}
+
+.song-item .inner-content .inner-action:hover {
+    color: #ff5a5f;
+}
+
+.song-item .inner-content .inner-action.heart-active {
+    color: #ff5a5f;
+}
+
+/* Add styles for the favorite button when heart-active is removed */
+.song-item .inner-content .inner-action:not(.heart-active) {
+    color: #282828; /* Default color */
+    transition: color 0.3s ease;
+}
+
+.song-item .inner-content .inner-action:not(.heart-active):hover {
+    color: #004cd0; /* Hover color when not active */
+}
