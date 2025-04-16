@@ -5,7 +5,24 @@ header.header
                 .inner-logo.d-flex.justify-content-between.align-items-center
                     a(href="/") 
                         img(src="/images/logo.png", alt="Logo", class="logo")
-            .col-9 
+            
+            .col-3
+                .box_search 
+                    form(action="/search/result", method="GET")
+                        div(class='form-group d-flex ')
+                            input(
+                                type="text",
+                                placeholder="Tìm kiếm bài hát, nghệ sĩ..."
+                                class="form-control me-2"
+                                name="keyword"
+                                value=keyword
+                            )
+                            button(
+                                type="submit"
+                                class="btn btn-outline-primary"
+                            ) 
+                                i.fa-solid.fa-magnifying-glass
+            .col-6
                 .inner-menu.d-flex.justify-content-end.align-items-center
                     ul 
                         li 
