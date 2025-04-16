@@ -95,3 +95,53 @@ if (listButtonFavorite.length > 0) {
     })
     
 }
+// End button favorite
+
+// Search suggest
+const boxSearch = document.querySelector('.box-search');
+if(boxSearch) {
+    const input = boxSearch.querySelector("input[name='keyword']");
+
+    const boxSuggest = boxSearch.querySelector('.inner-suggest');
+
+    input.addEventListener('input', () => {
+        const keyword = input.value.trim();
+        if (keyword.length > 0) {
+            const link = `/search/suggest?keyword=${keyword}`;
+            
+            fetch(link)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.code === 200) {
+                        const songs = data.songs;
+                        if(songs.length > 0) {
+                            boxSuggest.classList.add('show');
+
+                            const html = songs.map(song => {
+                                return `
+                                    <a class="inner-item" href="/songs/detail/${song.slug}"> 
+                                        <div class="inner-image"> 
+                                            <img src= ${song.avatar} alt=${song.title}>
+                                        </div>
+                                        <div class="inner-info"> 
+                                            <div class="inner-title">${song.title}</div>
+                                            <div class="inner-singer"> 
+                                                <i class="fa-solid fa-microphone-lines"> </i> ${song.infoSinger.fullName}
+                                            </div>
+                                        </div>
+                                    </a>
+                                `
+                            })
+
+                            const boxList = boxSuggest.querySelector('.inner-list');
+                            boxList.innerHTML = html.join('');
+                        }
+                        else {
+                            boxSuggest.classList.remove('show');
+                        }
+                    }
+                })
+        }
+    })
+}
+// End search suggest

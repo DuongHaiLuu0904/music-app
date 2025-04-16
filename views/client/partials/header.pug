@@ -6,8 +6,8 @@ header.header
                     a(href="/") 
                         img(src="/images/logo.png", alt="Logo", class="logo")
             
-            .col-3
-                .box_search 
+            .col-4
+                .box-search 
                     form(action="/search/result", method="GET")
                         div(class='form-group d-flex ')
                             input(
@@ -22,7 +22,19 @@ header.header
                                 class="btn btn-outline-primary"
                             ) 
                                 i.fa-solid.fa-magnifying-glass
-            .col-6
+
+                    .inner-suggest
+                        .inner-list 
+                            //- a(href="/songs/detail/:slugSong" class="inner-item") 
+                            //-     .inner-image 
+                            //-         img(src="https://backend.daca.vn/assets/images/cat-doi-noi-sau.jpg", alt="Cover Image")
+                            //-     .inner-info 
+                            //-         .inner-title Cắt Đôi Nỗi Sầu
+                            //-         .inner-singer 
+                            //-             i.fa-solid.fa-microphone-lines 
+                            //-             |  Tăng Duy Tân
+                       
+            .col-5
                 .inner-menu.d-flex.justify-content-end.align-items-center
                     ul 
                         li 
