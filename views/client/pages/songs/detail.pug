@@ -5,7 +5,7 @@ block style
     link(rel="stylesheet", href="/css/songs/detail.css")
 
 block main 
-    .main-content
+    .main-content.singer-detail
         .container
             .row 
                 .col-12 
@@ -21,16 +21,16 @@ block main
                         .inner-action.inner-topic   
                             i(class="fa-solid fa-book") 
                             |   #{topic.title}
+                        .inner-action.inner-listen 
+                            i(class="fa-solid fa-headphones") 
+                            |   #{song.listen} lượt nghe
                         .inner-action.inner-like(button-like=song.id)
                             i(class="fa-solid fa-thumbs-up") 
                             span #{song.like} thích 
                         div(class=('inner-action inner-heart' + (isFavoriteSong ? " heart-active" : "")), button-favorite=song.id)
                             i(class="fa-solid fa-heart") 
                             |   bài hát yêu thích
-                        //- .inner-action.inner-heart(class=(song.isFavoriteSong ? "heart-active" : ""),button-favorite=song.id)
-                            i(class="fa-solid fa-heart") 
-                            |   bài hát yêu thích
-                    
+                        
                     .inner-play 
                         .inner-avatar 
                             img(src=song.avatar, alt=song.title, class="rotating")

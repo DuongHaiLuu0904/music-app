@@ -38,6 +38,22 @@ if (aplayer) {
     // Lắng nghe sự kiện play và pause
     ap.on('play', updateRotation);
     ap.on('pause', updateRotation);
+
+    ap.on('ended', () => {
+        const link = `/songs/listen/${dataSong._id}`;
+
+        const options = {
+            method: 'PATCH'
+        };
+        fetch(link, options)
+            .then(response => response.json())
+            .then(data => {
+                if(data.code === 200) {
+                    const elementListen = document.querySelector('.singer-detail .inner-listen span');
+                    elementListen.innerHTML = `${data.listen} lượt nghe`;
+                }
+            })
+    })
 }
 // End Aplayer 
 

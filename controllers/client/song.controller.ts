@@ -143,3 +143,38 @@ export const favoriteYes = async (req: Request, res: Response): Promise<any> => 
         message: 'Favorite successfully'
     })
 }
+
+// [PATCH] /songs/listen/:idSong
+export const listen = async (req: Request, res: Response): Promise<any> => {
+    const idSong = req.params.idSong
+
+    const song = await Song.findOne({ 
+        _id: idSong,
+        status: "active",
+        deleted: false
+    })
+
+    if (!song) {
+        return res.status(404).send('Song not found')
+    }
+
+    let currentListen: number = song.listen || 0;
+    currentListen += 1
+
+    await Song.updateOne(
+        { _id: idSong }, 
+        { listen: currentListen} 
+    )
+    
+    const songNow = await Song.findOne({
+        _id: idSong,
+        status: "active",
+        deleted: false
+    }).select('listen')
+
+    res.json({
+        code: 200,
+        message: 'Listen successfully',
+        listen : songNow?.listen || currentListen
+    })
+}
