@@ -1,0 +1,55 @@
+.sider 
+    .sidebar-toggle
+        button#toggleSidebar(type="button")
+            i.fas.fa-bars
+    .inner-menu 
+        ul 
+            li 
+                a(href=`${prefixAdmin}/dashboard`)
+                    i.fas.fa-tachometer-alt
+                    span Tổng quan 
+
+            
+            li 
+                a(href=`${prefixAdmin}/topics`)
+                    i.fas.fa-list
+                    span Quản lý chủ đề 
+
+        
+            li 
+                a(href=`${prefixAdmin}/songs`)
+                    i.fas.fa-box
+                    span Quản lý bài hát 
+
+            li 
+                a(href=`${prefixAdmin}/singers`)
+                    i.fa-solid.fa-microphone-lines
+                    span Quản lý ca sĩ
+        
+            li 
+                a(href=`${prefixAdmin}/roles`)
+                    i.fas.fa-user-tag
+                    span Nhóm quyền
+
+        
+            li 
+                a(href=`${prefixAdmin}/roles/permissions`)
+                    i.fas.fa-key
+                    span Phân quyền
+
+        
+            li 
+                a(href=`${prefixAdmin}/accounts`)
+                    i.fas.fa-user-shield.me-2
+                    span Tài khoản Admin 
+        
+            li 
+                a(href=`${prefixAdmin}/users`)
+                    i.fas.fa-users
+                    span Tài khoản khách hàng
+
+            li 
+                a(href=`${prefixAdmin}/setting/general`)
+                    i.fas.fa-cog
+                    span Cài đặt chung
+

@@ -23,7 +23,7 @@ block main
                             |   #{topic.title}
                         .inner-action.inner-listen 
                             i(class="fa-solid fa-headphones") 
-                            |   #{song.listen} lượt nghe
+                            span #{song.listen} lượt nghe
                         .inner-action.inner-like(button-like=song.id)
                             i(class="fa-solid fa-thumbs-up") 
                             span #{song.like} thích 
