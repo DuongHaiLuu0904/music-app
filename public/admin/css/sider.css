@@ -1,0 +1,87 @@
+.sider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background: #2c3e50;
+    transition: all 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sidebar-toggle {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#toggleSidebar {
+    background: transparent;
+    border: none;
+    color: #ecf0f1;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.inner-menu {
+    padding: 10px 0;
+}
+
+.inner-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.inner-menu li {
+    margin: 5px 0;
+}
+
+.inner-menu a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.inner-menu a:hover {
+    background: #34495e;
+}
+
+.inner-menu i {
+    width: 20px;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.inner-menu span {
+    font-size: 0.95rem;
+}
+
+/* Thêm animation khi đóng/mở sidebar */
+.sider.collapsed {
+    width: 60px;
+}
+
+.sider.collapsed .inner-menu span {
+    display: none;
+}
+
+.sider.collapsed .inner-menu i {
+    margin-right: 0;
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sider {
+        transform: translateX(-100%);
+    }
+    
+    .sider.active {
+        transform: translateX(0);
+    }
+}
