@@ -10,6 +10,7 @@ import cors from 'cors'
 import flash from 'express-flash';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import methodOverride from 'method-override';
 
 dotenv.config()
 database.connect()
@@ -20,6 +21,8 @@ const port: number | string = process.env.PORT || 3000;
 // parse application
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.use(methodOverride('_method'));
 
 // TinyMCE
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));

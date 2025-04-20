@@ -8,7 +8,7 @@ if (buttonsChangeStatus.length > 0) {
 
             let statusChange = statusCurrent == "active" ? "inactive" : "active"
 
-            const apiUrl = `/admin/topics/change-status/${statusChange}/${id}`
+            const apiUrl = `/admin/singers/change-status/${statusChange}/${id}`
 
             const options = {
                 method: 'PATCH',
@@ -40,7 +40,7 @@ const buttonDelete = document.querySelectorAll("[button-delete]")
 if (buttonDelete.length > 0) {
     buttonDelete.forEach(button => {
         button.addEventListener("click", () => {
-            const isConfirm = confirm("Bạn có chắc chắn muốn xóa chủ đề này")
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa ca sĩ này")
 
             if (isConfirm) {
                 const id = button.getAttribute("data-id")
@@ -52,7 +52,7 @@ if (buttonDelete.length > 0) {
                     },
                 }
 
-                const link = `/admin/topics/delete/${id}`
+                const link = `/admin/singers/delete/${id}`
 
                 fetch(link, options)
                     .then(res => res.json())
@@ -85,7 +85,7 @@ if (formChangeMulti) {
 
         const typeChange = e.target.elements.type.value
         if (typeChange == "delete-all") {
-            const isConfirm = confirm("Bạn có chắc chắn muốn xóa chủ đề này")
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa ca sĩ này")
             if (!isConfirm) {
                 return;
             }
@@ -106,7 +106,7 @@ if (formChangeMulti) {
             })
 
 
-            const apiUrl = '/admin/topics/change-multi'
+            const apiUrl = '/admin/singers/change-multi'
             const options = {
                 method: 'PATCH',
                 headers: {

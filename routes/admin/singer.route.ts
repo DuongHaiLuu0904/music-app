@@ -4,7 +4,7 @@ const router: Router = Router();
 import multer from 'multer';
 const upload = multer()
 
-import * as controller from '../../controllers/admin/topic.controller';
+import * as controller from '../../controllers/admin/singer.controller';
 
 import * as uploadCloud from '../../middlewares/admin/uploadCloud.middleware';
 
@@ -24,4 +24,4 @@ router.post('/create', upload.single('avatar'), uploadCloud.uploadSingle, contro
 
 router.delete('/delete/:id', controller.deleteTopic)
 
-export const topicRouter: Router = router;
+export const singerRouter: Router = router;

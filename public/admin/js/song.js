@@ -40,7 +40,7 @@ const buttonDelete = document.querySelectorAll("[button-delete]")
 if (buttonDelete.length > 0) {
     buttonDelete.forEach(button => {
         button.addEventListener("click", () => {
-            const isConfirm = confirm("Bạn có chắc chắn muốn xóa sản phẩm này")
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa bài hát này")
 
             if (isConfirm) {
                 const id = button.getAttribute("data-id")
@@ -85,7 +85,7 @@ if (formChangeMulti) {
 
         const typeChange = e.target.elements.type.value
         if (typeChange == "delete-all") {
-            const isConfirm = confirm("Bạn có chắc chắn muốn xóa sản phẩm này")
+            const isConfirm = confirm("Bạn có chắc chắn muốn xóa bài hát này")
             if (!isConfirm) {
                 return;
             }

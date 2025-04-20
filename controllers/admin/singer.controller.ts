@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import Topic from '../../models/topic.model'
+import Singer from '../../models/singer.model'
 
 import searchHelper from '../../helpers/search'
 import paginationHelper from '../../helpers/pagination'
@@ -45,7 +45,7 @@ export const index = async (req: Request, res: Response) => {
     //
 
     // Phân trang 
-    const countProducts = await Topic.countDocuments(find);
+    const countProducts = await Singer.countDocuments(find);
 
     let objectPangination = paginationHelper(
         {
@@ -68,25 +68,25 @@ export const index = async (req: Request, res: Response) => {
     }
     //
     
-    const topics = await Topic.find(find).limit(objectPangination.limitItems).skip(objectPangination.skip).sort(sort)
+    const singers = await Singer.find(find).limit(objectPangination.limitItems).skip(objectPangination.skip).sort(sort)
 
     
-    res.render('admin/pages/topics/index', {
+    res.render('admin/pages/singers/index', {
         title: 'Trang sản phẩm',
-        topics: topics,
+        singers : singers,
         filterStatus: filterStatus,
         keyword: objectSearch.keyword,
         pagination: objectPangination
     });
 }
 
-// [PATCH] /admin/topics/change-status/:status/:id
+// [PATCH] /admin/singers/change-status/:status/:id
 export const changeStatus = async (req: Request, res: Response) => {
     try {
         const id: string = req.params.id
         const status: string = req.params.status
 
-        await Topic.updateOne({ _id: id }, { status: status })
+        await Singer.updateOne({ _id: id }, { status: status })
         req.flash('success', 'Cập nhật trạng thái thành công!');
         res.json({
             code: 200,
@@ -102,7 +102,7 @@ export const changeStatus = async (req: Request, res: Response) => {
     }
 }
 
-// [PATCH] /admin/topics/change-multiple
+// [PATCH] /admin/singers/change-multiple
 export const changeMultiple = async (req: Request, res: Response) => {
     try {
         const ids: string[] = req.body.ids.split(", ")
@@ -110,14 +110,14 @@ export const changeMultiple = async (req: Request, res: Response) => {
 
         switch (type) {
             case 'active':
-                await Topic.updateMany({ _id: { $in: ids } }, { status: 'active' })
+                await Singer.updateMany({ _id: { $in: ids } }, { status: 'active' })
                 res.json({
                     code: 200,
                     message: 'Update status success',
                 })
                 break
             case 'inactive':
-                await Topic.updateMany({ _id: { $in: ids } }, { status: 'inactive' })
+                await Singer.updateMany({ _id: { $in: ids } }, { status: 'inactive' })
                 res.json({
                     code: 200,
                     message: 'Update status success',
@@ -125,7 +125,7 @@ export const changeMultiple = async (req: Request, res: Response) => {
                 break
             
             case 'delete-all':
-                await Topic.updateMany({ _id: { $in: ids } }, { 
+                await Singer.updateMany({ _id: { $in: ids } }, { 
                     deleted: true, 
                     deletedAt: new Date()
                 })
@@ -153,12 +153,12 @@ export const changeMultiple = async (req: Request, res: Response) => {
     }
 }
 
-// [DELETE] /admin/topics/delete/:id
+// [DELETE] /admin/singers/delete/:id
 export const deleteTopic = async (req: Request, res: Response) => {
     try {
         const id: string = req.params.id
 
-        await Topic.updateOne({ _id: id }, { 
+        await Singer.updateOne({ _id: id }, { 
             deleted: true, 
             deletedAt: new Date()
         })
@@ -176,24 +176,24 @@ export const deleteTopic = async (req: Request, res: Response) => {
     }
 }
 
-// [GET] /admin/topics/create
+// [GET] /admin/songs/create
 export const create = async (req: Request, res: Response): Promise<void> => {
-    res.render('admin/pages/topics/create', {
+    res.render('admin/pages/singers/create', {
         title: 'Thêm mới bài hát'
     })
 }
 
-// [POST] /admin/topics/create
+// [POST] /admin/songs/create
 export const createPost = async (req: Request, res: Response): Promise<void> => {
     try {
         const dataSinger = {
-            title: req.body.title,
+            fullName: req.body.fullName,
             description: req.body.description,
-            position: (req.body.position) ? parseInt(req.body.position) : (await Topic.countDocuments({ deleted: false })) + 1,
+            position: (req.body.position) ? parseInt(req.body.position) : (await Singer.countDocuments({ deleted: false })) + 1,
             status: req.body.status,
             avatar: req.body.avatar
         }
-        const singer = new Topic(dataSinger)
+        const singer = new Singer(dataSinger)
         await singer.save()
 
         req.flash('success', 'Thêm mới bài hát thành công!')
@@ -202,7 +202,7 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
     catch (error) {
         res.json({
             code: 400,
-            message: `${error}`
+            message: 'Error'
         })
     }
 }
