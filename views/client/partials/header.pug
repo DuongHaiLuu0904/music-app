@@ -4,7 +4,7 @@ header.header
             .col-3
                 .inner-logo.d-flex.justify-content-between.align-items-center
                     a(href="/") 
-                        img(src="/images/logo.png", alt="Logo", class="logo")
+                        img(src=setting.logo, alt=setting.webSiteName, class="logo")
             
             .col-4
                 .box-search 
@@ -49,3 +49,21 @@ header.header
                             a(href="/favorite-songs")
                                 i.fa-solid.fa-heart.me-2
                                 |   Yêu thích
+                        if(user)
+                            li 
+                                a(href="/users/info", class="icon-link")
+                                    i.fa-solid.fa-user
+                                    span.menu-text #{user.fullName}
+                            li 
+                                a(href="/users/logout", class="icon-link")
+                                    i.fa-solid.fa-right-from-bracket
+                                    span.menu-text Logout
+                        else 
+                            li 
+                                a(href="/users/register", class="icon-link")
+                                    i.fa-solid.fa-user-plus
+                                    span.menu-text Register
+                            li
+                                a(href="/users/login", class="icon-link")
+                                    i.fa-solid.fa-right-to-bracket
+                                    span.menu-text Login

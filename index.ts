@@ -35,10 +35,10 @@ app.set('views', './views')
 // Flash
 app.use(cookieParser('IamHaiLuu')); // key ramdom
 app.use(session({
-    secret: 'IamHaiLuu',       // Chuỗi bí mật để mã hóa session (nên đặt trong biến môi trường)
-    resave: false,             // Không lưu session nếu không có thay đổi
-    saveUninitialized: false,  // Không lưu session mới nếu chưa có dữ liệu
-    cookie: { maxAge: 60000 }  // Thời gian sống của session (60 giây)
+    secret: 'IamHaiLuu',       
+    resave: false,             
+    saveUninitialized: false,  
+    cookie: { maxAge: 60000 }  
 }))
 app.use(flash());
 

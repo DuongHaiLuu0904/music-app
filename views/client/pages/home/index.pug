@@ -1,0 +1,47 @@
+extends  ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main 
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head(title)
+
+        .row 
+            .col-12 
+                h2 Topics
+        .row 
+            each topic in topics
+                .col-6.mb-3 
+                    .card 
+                        img(src=topic.avatar, alt=topic.title)
+                        .card-body
+                            h5.card-title #{topic.title}
+                            p.card-text #{topic.description}
+                            a.btn.btn-primary(href=`/songs/${topic.slug}`) Xem chi tiết
+        
+        .row 
+            .col-12 
+                h2 Songs
+        .row 
+            each song in songs
+                
+                .col-6.mb-3 
+                    .song-item 
+                        .inner-image 
+                            a(href=`/songs/detail/${song.slug}`) 
+                                img(src=song.avatar, alt="Cover Image")
+                        .inner-content
+                            .inner-title 
+                                a(href=`/songs/detail/${song.slug}`) #{song.title}
+                            .inner-singer 
+                                a(href="/singer/detail/:slugSinger") 
+                                    i.fa-solid.fa-microphone-lines 
+                                    |  #{song.infoSinger.fullName}
+                            .inner-like 
+                                i(class="fa-solid fa-thumbs-up") 
+                                |   #{song.like}
+                            .inner-time 
+                                i(class="fa-solid fa-clock") 
+                                |   3:45
+        

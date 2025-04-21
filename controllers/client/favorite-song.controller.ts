@@ -1,12 +1,18 @@
 import { Request, Response } from 'express';
 
-import Topic from '../../models/topic.model';
 import Song from '../../models/song.model';
 import Singer from '../../models/singer.model';
 import favoriteSong from '../../models/favorite-song.model';
 
 export const index = async (req: Request, res: Response): Promise<any> => {
+    // Kiểm tra xem người dùng đã đăng nhập hay chưa
+    if (!res.locals.user) {
+        res.redirect('/users/login');
+        return;
+    }
+
     let favoriteSongs = await favoriteSong.find({
+        userId: res.locals.user._id,
         deleted: false
     });
 

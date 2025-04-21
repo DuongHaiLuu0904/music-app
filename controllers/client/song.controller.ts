@@ -65,11 +65,16 @@ export const detail = async (req: Request, res: Response): Promise<any> => {
         status: "active",
         deleted: false
     }).select('title')
-
-    const isFavoriteSong = await favoriteSong.findOne({
-        songId: song._id,
-        // userId: req.user._id,
-    })
+    
+    let isFavoriteSong
+    try {
+        isFavoriteSong = await favoriteSong.findOne({
+            songId: song._id,
+            userId: res.locals.user._id,
+        })
+    } catch (error) {
+        isFavoriteSong = false
+    }
 
     res.render('client/pages/songs/detail', {
         title: song.title,  
@@ -115,6 +120,11 @@ export const likeYes = async (req: Request, res: Response): Promise<any> => {
 export const favoriteYes = async (req: Request, res: Response): Promise<any> => {
     const idSong = req.params.idSong
     const typeFavorite = req.params.typeFavorite
+
+    if(!res.locals.user) {
+        res.redirect('/users/login');
+        return;
+    }
     
     switch (typeFavorite) {
         case 'yes':
@@ -124,7 +134,7 @@ export const favoriteYes = async (req: Request, res: Response): Promise<any> => 
             if(!exitsFavoriteSong) {
                 const record = new favoriteSong({
                     songId: idSong,
-                    // userId: req.user._id,
+                    userId: res.locals.user._id
                 })
                 await record.save()
             }
@@ -132,7 +142,7 @@ export const favoriteYes = async (req: Request, res: Response): Promise<any> => 
         case 'no':
             await favoriteSong.deleteOne({
                 songId: idSong,
-                // userId: req.user._id,
+                userId: res.locals.user._id
             })
             break
         default:
